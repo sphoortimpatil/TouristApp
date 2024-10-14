@@ -4,6 +4,7 @@
 *.xcscmblueprint
 *.xcworkspace/
 *.xcuserdata/
+*.xcdebugger/
 *.xccheckout
 
 # Swift Package Manager
