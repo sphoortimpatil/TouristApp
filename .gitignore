@@ -1,62 +1,71 @@
 # Xcode
-#
-# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+.DS_Store
+*.xcuserstate
+*.xcscmblueprint
+*.xcworkspace/
+*.xcuserdata/
+*.xccheckout
 
-## User settings
-xcuserdata/
+# Swift Package Manager
+/.build/
+/Package.resolved
 
-## Obj-C/Swift specific
-*.hmap
-
-## App packaging
+# Build artifacts
+DerivedData/
+build/
+*.app
 *.ipa
 *.dSYM.zip
 *.dSYM
 
-## Playgrounds
-timeline.xctimeline
-playground.xcworkspace
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
+*.lock
 
-# Swift Package Manager
-#
-# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
-# Packages/
-# Package.pins
-# Package.resolved
-# *.xcodeproj
-#
-# Xcode automatically generates this directory with a .xcworkspacedata file and xcuserdata
-# hence it is not needed unless you have added a package configuration file to your project
-# .swiftpm
-
-.build/
-
-# CocoaPods
-#
-# We recommend against adding the Pods directory to your .gitignore. However
-# you should judge for yourself, the pros and cons are mentioned at:
-# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
-#
-# Pods/
-#
-# Add this line if you want to avoid checking in source code from the Xcode workspace
-# *.xcworkspace
+# Archives
+*.xcarchive
 
 # Carthage
-#
-# Add this line if you want to avoid checking in source code from Carthage dependencies.
-# Carthage/Checkouts
-
 Carthage/Build/
+Carthage/Checkouts/
 
-# fastlane
-#
-# It is recommended to not store the screenshots in the git repo.
-# Instead, use fastlane to re-generate the screenshots whenever they are needed.
-# For more information about the recommended setup visit:
-# https://docs.fastlane.tools/best-practices/source-control/#source-control
+# CocoaPods
+Pods/
+Podfile.lock
 
+# Fastlane
 fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
-fastlane/test_output
+fastlane/test_output/
+
+# Unit test and coverage
+*.gcno
+*.gcda
+*.profdata
+
+# IDE preferences and settings
+.idea/
+
+# Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Other files
+*.mode1v3
+*.pbxuser
+*.perspectivev3
+*.xcuserdatad
+
+# SwiftPM
+.build/
+Package.resolved
+
+# Git Extensions
+/.git/
+
+# Markdown files
+*.md
+
