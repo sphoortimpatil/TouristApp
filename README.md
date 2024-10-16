@@ -10,19 +10,25 @@ Welcome to the **Tourist App**, an iOS application built using **UIKit** and **S
 
 ## 📸 Screenshots
 
-![Auto City Search](https://your-screenshot-url-here.com)  
-*Search for cities and discover attractions!*
+<div align="center">
+    <img src="./Screenshots/Seach Cities.png" alt="Auto City Search" width="400" />
+    <p><em>Search for cities and discover attractions!</em></p>
+    <img src="./Screenshots/Nearby Tourist Attractions List.png" alt="Nearby Attractions" width="400" />
+    <p><em>View a list of top 30 nearby attractions in and around the selected city!</em></p>
+    <img src="./Screenshots/Searched Place Image Gallery.png" alt="Attraction Details" width="400" />
+    <p><em>View stunning images of your chosen attractions!</em></p>
+</div>
 
-![Nearby Attractions]()
-*View a list of top 30 nearby attraction in and around the selected city!*
-
-![Attraction Details](https://your-screenshot-url-here.com)  
-*View stunning images of your chosen attractions!*
 
 ## 🎥 Demo Video
 
 Check out this video demonstration of the Tourist App to see it in action!
-* https://github.com/user-attachments/assets/1e69589c-c502-42a4-a4c8-78d46f2a8377
+<div align="center">
+
+https://github.com/user-attachments/assets/0644a28f-1591-4e61-bf89-139b4fdbf031
+
+</div>
+
 
 In this video, you will see:
 - How to search for cities.
