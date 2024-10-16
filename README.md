@@ -88,6 +88,8 @@ The response contains an array of photo objects, each with details such as the p
     <p><em>View a list of top 30 nearby attractions in and around the selected city!</em></p>
     <img src="./Screenshots/Searched Place Image Gallery.png" alt="Attraction Details" width="400" />
     <p><em>View stunning images of your chosen attractions!</em></p>
+  <img src="./Screenshots/ReloadButton.png" alt="Reload Button" width="400" />
+    <p><em>Click the reload button to refresh and load images again if there’s an issue with the API.</em></p>
 </div>
 
 
