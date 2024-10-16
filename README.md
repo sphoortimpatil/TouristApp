@@ -6,7 +6,75 @@ Welcome to the **Tourist App**, an iOS application built using **UIKit** and **S
 
 - **City Search**: Effortlessly search for cities using the **Google Autocomplete API** for quick and accurate suggestions.
 - **Discover Attractions**: Get a curated list of tourist attractions in and around the searched city.
+Access important details about each tourist attraction, which includes:
+  - Attraction Name
+  - City
+  - Photo
+  - Operational Hours
+  - Ratings
+  - Reviews Count 
+    
 - **Image Gallery**: View beautiful images of selected tourist locations to help plan your next adventure.
+
+## 📚 API References
+### 1. Autocomplete User City Search
+    GET https://google-map-places.p.rapidapi.com/maps/api/place/queryautocomplete/json?radius=1000&input={searchItem}
+
+| Parameter     | Type   | Description                                     |
+|---------------|--------|-------------------------------------------------|
+| `searchItem`    | `string` | Required. The city name being searched by the user. |
+
+- **Description**: 
+This API autocompletes user search queries for city names, returning the top 5 matched place names.
+
+- **Output**: 
+A list of predictions, each containing the `placeId` and `mainText` (the suggested place name).
+
+---
+
+### 2. Selected City Information
+      GET https://maps-data.p.rapidapi.com/place.php?place_id={placeId}
+
+| Parameter  | Type   | Description                                          |
+|------------|--------|------------------------------------------------------|
+| `placeId`    | `string` | **Required.** The ID of the place selected by the user which is retrieved from the Autocomplete API. |
+
+- **Description**: 
+This API retrieves latitude and longitude details for the selected city using the place ID.
+
+- **Output**: 
+Returns `latitude` and `longitude` of the selected place, along with additional place information like `businessId`.
+
+---
+
+### 3. Nearby Tourist Attractions
+    GET https://maps-data.p.rapidapi.com/nearby.php?query=Tourist attraction&limit=30&latitude={latitude}&longitude={longitude}
+
+| Parameter  | Type      | Description                                          |
+|------------|-----------|------------------------------------------------------|
+| `latitude`   | `double`    | **Required.** Latitude of the selected place.           |
+| `longitude`  | `double`    | **Required.** Longitude of the selected place.          |
+
+- **Description**: 
+This API retrieves the top 30 tourist attractions near the specified latitude and longitude.
+
+- **Output**: 
+Returns a list of nearby tourist attractions, including details like `name`, `city`, `rating`, `operational hours` and associated photos.
+
+---
+### 4. Image Search
+    GET https://api.pexels.com/v1/search?per_page=20&query={placeName}
+
+| Parameter   | Type   | Description                                                   |
+|-------------|--------|---------------------------------------------------------------|
+| `placeName`   | `string` | **Required.** The name of the place for which you want to retrieve images. |
+
+- **Description**: 
+This API retrieves up to 20 high-quality images related to the specified place name, functioning as an image gallery. The pagination feature allows users to fetch images across multiple pages.
+
+- **Output**: 
+The response contains an array of photo objects, each with details such as the photo URL and photographer information.
+
 
 ## 📸 Screenshots
 
