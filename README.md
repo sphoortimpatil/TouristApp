@@ -7,7 +7,7 @@ Welcome to the **Tourist App**, an iOS application built using **UIKit** and **S
 - **City Search**: Effortlessly search for cities using the **Google Autocomplete API** for quick and accurate suggestions.
 - **Discover Attractions**: Get a curated list of tourist attractions in and around the searched city.
 Access important details about each tourist attraction, which includes:
-  - Attraction Name
+  - Tourist Attraction Name
   - City
   - Photo
   - Operational Hours
