@@ -25,8 +25,8 @@ class NearbyPlaceTableViewCell: UITableViewCell {
         contentView.addSubview(nearbyAttractionsView)
         
         nearbyAttractionsView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5).isActive = true
-        nearbyAttractionsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        nearbyAttractionsView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        nearbyAttractionsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5).isActive = true
+        nearbyAttractionsView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5).isActive = true
         nearbyAttractionsView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5).isActive = true
         nearbyAttractionsView.backgroundColor = .systemGray2
         nearbyAttractionsView.layer.cornerRadius = 10

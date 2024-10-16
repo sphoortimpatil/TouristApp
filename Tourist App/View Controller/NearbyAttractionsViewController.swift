@@ -54,7 +54,23 @@ class NearbyAttractionsViewController: UIViewController {
         spinnerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
     
+    private func resetNearbySearchedPlaceTableViewData() {
+        self.nearbySearchedPlaceData = []
+        DispatchQueue.main.async {
+            self.nearbySearchedPlaceTableView.reloadData()
+        }
+    }
+    
+    private func reloadNearbySearchedPlaceTableViewData(_ data: [NearbyAttractionsDataModel]) {
+        self.nearbySearchedPlaceData = data
+        DispatchQueue.main.async {
+            self.nearbySearchedPlaceTableView.reloadData()
+        }
+        self.spinnerView.setSpinnerAnimation(false)
+    }
+    
     func setNearbyearchedPlaceData(result: Result<SearchedPlaceInfoData, any Error>) {
+        resetNearbySearchedPlaceTableViewData()
         spinnerView.setSpinnerAnimation(true)
         switch result {
         case .success(let placeInfo):
@@ -64,19 +80,15 @@ class NearbyAttractionsViewController: UIViewController {
                 }
                 switch result {
                 case.success(let nearbySearchedPlaceData):
-                    self.nearbySearchedPlaceData = nearbySearchedPlaceData
-                    DispatchQueue.main.async {
-                        self.nearbySearchedPlaceTableView.reloadData()
-                    }
-                    self.spinnerView.setSpinnerAnimation(false)
+                    self.reloadNearbySearchedPlaceTableViewData(nearbySearchedPlaceData)
                 case .failure(let error):
                     print("NearbyPlace Error", error)
-                    self.spinnerView.setSpinnerAnimation(false)
+                    self.reloadNearbySearchedPlaceTableViewData([])
                 }
             }
         case .failure(let error):
             print("Error", error)
-            self.spinnerView.setSpinnerAnimation(false)
+            self.reloadNearbySearchedPlaceTableViewData([])
         }
     }
 

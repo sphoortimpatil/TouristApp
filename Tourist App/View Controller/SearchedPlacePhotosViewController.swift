@@ -110,7 +110,7 @@ class SearchedPlacePhotosViewController: UIViewController {
        }
     
     private func reloadColelctionViewData(_ photosList: [PlacePhotos]) {
-        switch photosList.count{
+        switch photosList.count {
         case 0:
             self.isEndOfData = true
             if(self.placePhotosList.count == 0) {
@@ -125,6 +125,7 @@ class SearchedPlacePhotosViewController: UIViewController {
                 self.searchedPlacePhotosCollectionView.reloadData()
             }
         }
+        self.setSpinnerVisibilityAsHidden(true)
     }
     
     private func setSpinnerVisibilityAsHidden(_ isNotVisible: Bool) {
@@ -150,11 +151,10 @@ class SearchedPlacePhotosViewController: UIViewController {
             }
             switch result {
             case .success(let photosList):
-                self.setSpinnerVisibilityAsHidden(true)
                 self.reloadColelctionViewData(photosList.photosList)
             case .failure(let error):
                 print("error", error)
-                self.setSpinnerVisibilityAsHidden(true)
+                self.reloadColelctionViewData([])
             }
         }
     }
