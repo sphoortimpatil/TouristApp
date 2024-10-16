@@ -2,7 +2,7 @@
 //  PinterestLayout.swift
 //  Tourist App
 //
-//  Created by CrewPlace Enterprise on 05/10/24.
+//  Created by Sphoorti Patil on 05/10/24.
 //
 
 import UIKit

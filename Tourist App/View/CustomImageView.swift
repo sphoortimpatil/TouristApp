@@ -2,7 +2,7 @@
 //  CustomImageView.swift
 //  Tourist App
 //
-//  Created by CrewPlace Enterprise on 05/10/24.
+//  Created by Sphoorti Patil on 05/10/24.
 //
 
 import UIKit
@@ -83,8 +83,10 @@ class CustomImageView: UIView {
         self.imageUrl = imageUrl
         spinnerView.setSpinnerAnimation(true)
         placeImageView.image = UIImage(named: "ImagePlaceHolder")
-        placeImageView.asyncLoadImage(imageUrl: imageUrl) {
-            result in
+        placeImageView.asyncLoadImage(imageUrl: imageUrl) { [weak self] result in
+            guard let self = self else {
+                return
+            }
             switch result {
             case .success(let data):
                 DispatchQueue.main.async {

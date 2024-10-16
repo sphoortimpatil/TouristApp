@@ -2,7 +2,7 @@
 //  OpeningHourStateView.swift
 //  Tourist App
 //
-//  Created by CrewPlace Enterprise on 30/09/24.
+//  Created by Sphoorti Patil on 30/09/24.
 //
 
 import UIKit

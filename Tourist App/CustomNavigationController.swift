@@ -2,7 +2,7 @@
 //  CustomNavigationController.swift
 //  Tourist App
 //
-//  Created by CrewPlace Enterprise on 04/10/24.
+//  Created by Sphoorti Patil on 04/10/24.
 //
 
 import UIKit
@@ -22,14 +22,14 @@ class CustomNavigationController: UINavigationController {
     }
     
     
-    func setupNavigationBar(){
-//        self.navigationBar.addSubview(searchBar)
-//        searchBar.translatesAutoresizingMaskIntoConstraints = false
-//
-//
-//        searchBar.topAnchor.constraint(equalTo: self.navigationBar.topAnchor).isActive = true
-//        searchBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
-//        searchBar.leadingAnchor.constraint(equalTo: self.navigationBar.leadingAnchor).isActive = true
-//        searchBar.trailingAnchor.constraint(equalTo: self.navigationBar.trailingAnchor).isActive = true
+    private func setupNavigationBar(){
+        self.navigationBar.addSubview(searchBar)
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+
+
+        searchBar.topAnchor.constraint(equalTo: self.navigationBar.topAnchor).isActive = true
+        searchBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        searchBar.leadingAnchor.constraint(equalTo: self.navigationBar.leadingAnchor).isActive = true
+        searchBar.trailingAnchor.constraint(equalTo: self.navigationBar.trailingAnchor).isActive = true
     }
 }

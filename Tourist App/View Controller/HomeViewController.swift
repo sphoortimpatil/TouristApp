@@ -2,18 +2,16 @@
 //  HomeViewController.swift
 //  Tourist App
 //
-//  Created by CrewPlace Enterprise on 22/09/24.
+//  Created by Sphoorti Patil on 22/09/24.
 //
 
 import UIKit
 
 class HomeViewController: UIViewController {
-    private let spinnerView = SpinnerView()
     private let searchBar = SearchBar()
     private let searchPlaceVC = SearchPlaceViewController()
-    private let autocompleteVM = AutocompleteSearchViewModel()
     private let nearbyAttractionsVC = NearbyAttractionsViewController()
-    private let nearbyAttractionsVM = NearbyAttractionsViewModel()
+    private var searchPlaceHolderText = ""
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,14 +20,13 @@ class HomeViewController: UIViewController {
         configureSearchPlaceVC()
         configureSearchBar()
         configureSearchedPlaceNearbyAttractionsVC()
-        configureSpinnerView()
         setDelegated()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        searchBar.setSearchInteractions(true)
+        searchBar.setSearchInteractions(true, searchPlaceHolderText)
     }
     
     private func configureSearchBar() {
@@ -42,7 +39,6 @@ class HomeViewController: UIViewController {
         searchBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
         searchBar.leadingAnchor.constraint(equalTo: navigationBar.leadingAnchor,constant: 10).isActive = true
         searchBar.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor, constant: -10).isActive = true
-        
     }
     
     private func configureSearchPlaceVC() {
@@ -68,7 +64,6 @@ class HomeViewController: UIViewController {
         searchedPlaceNearbyAttractionsView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(searchedPlaceNearbyAttractionsView)
         
-        
         searchedPlaceNearbyAttractionsView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         searchedPlaceNearbyAttractionsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         searchedPlaceNearbyAttractionsView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
@@ -76,16 +71,7 @@ class HomeViewController: UIViewController {
         
         searchedPlaceNearbyAttractionsView.backgroundColor = .gray
         searchedPlaceNearbyAttractionsView.isHidden = true
-        
         nearbyAttractionsVC.didMove(toParent: self)
-    }
-    
-    private func configureSpinnerView() {
-        spinnerView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(spinnerView)
-        
-        spinnerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        spinnerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
     
     private func setDelegated() {
@@ -108,52 +94,23 @@ extension HomeViewController: SearchBarDelegate {
                 self.nearbyAttractionsVC.view.isHidden = true
                 self.searchPlaceVC.view.isHidden = false
             }
-            spinnerView.setSpinnerAnimation(true)
-            autocompleteVM.fetchAutocompleteSearchPredictions(searchString: searchValue) {
-                result in
-                switch result {
-                case .success(let data):
-                    self.searchPlaceVC.setAutocompleteSearchListData(data.predictions)
-                    self.spinnerView.setSpinnerAnimation(false)
-                case .failure(let error):
-                    print(error)
-                    self.spinnerView.setSpinnerAnimation(false)
-                }
-            }
+            self.searchPlaceVC.setAutocompleteSearchListData(searchValue: searchValue)
         }
     }
 }
-
 
 extension HomeViewController: SearchPlaceViewControllerDelegate {
     func setSelectedSearchTextOnDidSelect(searchedString: String) {
         searchBar.setSelectedSearchText(searchedString)
     }
     
-    func didTapPlaceNameToSearch(result: Result<SearchedPlaceInfoData, any Error>) {
+    func didTapPlaceNameToSearch(result: Result<SearchedPlaceInfoData, any Error>, placeName: String) {
         DispatchQueue.main.async {
             self.searchPlaceVC.view.isHidden = true
+            self.nearbyAttractionsVC.view.isHidden = false
         }
-        spinnerView.setSpinnerAnimation(true)
-        switch result {
-        case .success(let placeInfo):
-            self.nearbyAttractionsVM.fetchNearbyPlaces(lat: placeInfo.latitude, lng: placeInfo.longitude) { [weak self] result in
-                switch result {
-                case.success(let nearbySearchedPlaceData):
-                    self?.nearbyAttractionsVC.setNearbyearchedPlaceData(nearbySearchedPlaceData)
-                    DispatchQueue.main.async {
-                        self?.nearbyAttractionsVC.view.isHidden = false
-                    }
-                    self?.spinnerView.setSpinnerAnimation(false)
-                case .failure(let error):
-                    print("NearbyPlace Error", error)
-                    self?.spinnerView.setSpinnerAnimation(false)
-                }
-            }
-        case .failure(let error):
-            print("Error", error)
-            self.spinnerView.setSpinnerAnimation(false)
-        }
+        self.searchPlaceHolderText = placeName
+        self.nearbyAttractionsVC.setNearbyearchedPlaceData(result: result)
     }
 }
 
@@ -161,7 +118,7 @@ extension HomeViewController: NearbyAttractionsViewControllerDelegate {
     func didSelecrTouristPlace(selectedPlaceData: NearbyAttractionsDataModel) {
         let searchedPlacePhotosViewController = SearchedPlacePhotosViewController()
         searchedPlacePhotosViewController.setImageData(placeName: selectedPlaceData.name)
-        searchBar.setSearchInteractions(false)
+        searchBar.setSearchInteractions(false, selectedPlaceData.name)
         navigationController?.pushViewController(searchedPlacePhotosViewController, animated: true)
     }
 }

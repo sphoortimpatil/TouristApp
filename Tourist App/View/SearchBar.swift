@@ -2,7 +2,7 @@
 //  SearchBar.swift
 //  Tourist App
 //
-//  Created by CrewPlace Enterprise on 22/09/24.
+//  Created by Sphoorti Patil on 22/09/24.
 //
 
 protocol SearchBarDelegate: AnyObject {
@@ -53,8 +53,9 @@ class SearchBar: UIView {
         searchBar.resignFirstResponder()
     }
     
-    func setSearchInteractions(_ isEnabled: Bool) {
+    func setSearchInteractions(_ isEnabled: Bool, _ searchPlaceHolderText: String) {
         searchBar.searchTextField.isEnabled = isEnabled
+        searchBar.text = searchPlaceHolderText
     }
 }
 

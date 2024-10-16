@@ -2,7 +2,7 @@
 //  ApiUrlData.swift
 //  Tourist App
 //
-//  Created by CrewPlace Enterprise on 22/09/24.
+//  Created by Sphoorti Patil on 22/09/24.
 //
 
 import Foundation

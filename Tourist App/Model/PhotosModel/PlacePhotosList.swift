@@ -2,7 +2,7 @@
 //  PlacePhotosList.swift
 //  Tourist App
 //
-//  Created by CrewPlace Enterprise on 06/10/24.
+//  Created by Sphoorti Patil on 06/10/24.
 //
 
 import Foundation

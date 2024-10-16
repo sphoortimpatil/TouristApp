@@ -2,7 +2,7 @@
 //  NearbyAttractionsViewController.swift
 //  Tourist App
 //
-//  Created by CrewPlace Enterprise on 29/09/24.
+//  Created by Sphoorti Patil on 29/09/24.
 //
 
 import UIKit
@@ -12,21 +12,22 @@ protocol NearbyAttractionsViewControllerDelegate: AnyObject {
 }
 
 class NearbyAttractionsViewController: UIViewController {
-//    let searchedPlaceNearbyAttractionsView = SearchedPlaceNearbyAttractionsView()
     weak var delegate: NearbyAttractionsViewControllerDelegate?
+    private let nearbyAttractionsVM = NearbyAttractionsViewModel()
     private var nearbySearchedPlaceData: [NearbyAttractionsDataModel] = []
     private let nearbySearchedPlaceTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
+    private let spinnerView = SpinnerView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configureNearbyPlaceTableView()
         setDelegate()
-        
+        configureSpinnerView()
     }
     
     private func configureNearbyPlaceTableView() {
@@ -45,10 +46,37 @@ class NearbyAttractionsViewController: UIViewController {
         nearbySearchedPlaceTableView.dataSource = self
     }
     
-    func setNearbyearchedPlaceData(_ nearbySearchedPlaceData: [NearbyAttractionsDataModel]) {
-        self.nearbySearchedPlaceData = nearbySearchedPlaceData
-        DispatchQueue.main.async {
-            self.nearbySearchedPlaceTableView.reloadData()
+    private func configureSpinnerView() {
+        spinnerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(spinnerView)
+        
+        spinnerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        spinnerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
+    
+    func setNearbyearchedPlaceData(result: Result<SearchedPlaceInfoData, any Error>) {
+        spinnerView.setSpinnerAnimation(true)
+        switch result {
+        case .success(let placeInfo):
+            self.nearbyAttractionsVM.fetchNearbyPlaces(lat: placeInfo.latitude, lng: placeInfo.longitude) { [weak self] result in
+                guard let self = self else {
+                    return
+                }
+                switch result {
+                case.success(let nearbySearchedPlaceData):
+                    self.nearbySearchedPlaceData = nearbySearchedPlaceData
+                    DispatchQueue.main.async {
+                        self.nearbySearchedPlaceTableView.reloadData()
+                    }
+                    self.spinnerView.setSpinnerAnimation(false)
+                case .failure(let error):
+                    print("NearbyPlace Error", error)
+                    self.spinnerView.setSpinnerAnimation(false)
+                }
+            }
+        case .failure(let error):
+            print("Error", error)
+            self.spinnerView.setSpinnerAnimation(false)
         }
     }
 

@@ -2,7 +2,7 @@
 //  RatingStarView.swift
 //  Tourist App
 //
-//  Created by CrewPlace Enterprise on 29/09/24.
+//  Created by Sphoorti Patil on 29/09/24.
 //
 
 import UIKit

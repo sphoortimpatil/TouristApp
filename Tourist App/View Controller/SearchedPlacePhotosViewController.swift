@@ -2,7 +2,7 @@
 //  SearchedPlacePhotosViewController.swift
 //  Tourist App
 //
-//  Created by CrewPlace Enterprise on 05/10/24.
+//  Created by Sphoorti Patil on 05/10/24.
 //
 
 import UIKit
@@ -16,6 +16,7 @@ class SearchedPlacePhotosViewController: UIViewController {
         collectionView.showsVerticalScrollIndicator = false
         return collectionView
     }()
+    private let noResultsFoundView = NoResultsFoundView()
     private let spinnerView = SpinnerView()
     private var placeName: String = ""
     private var photosViewModel = PhotosViewModel()
@@ -25,6 +26,7 @@ class SearchedPlacePhotosViewController: UIViewController {
     
     private var currentPage = 1
     private var totalPages = 10
+    private var isEndOfData = false
     private let refreshControl = UIRefreshControl()
 
     override func viewDidLoad() {
@@ -34,6 +36,7 @@ class SearchedPlacePhotosViewController: UIViewController {
         configureGestureNavigation()
         configureSearchedPlacePhotosCollectionView()
         setUpDelegate()
+        configureNoResultsFoundView()
         configureSpinnerView()
         configureRefreshControl()
     }
@@ -78,6 +81,17 @@ class SearchedPlacePhotosViewController: UIViewController {
         }
     }
     
+    private func configureNoResultsFoundView() {
+        noResultsFoundView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(noResultsFoundView)
+        
+        noResultsFoundView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        noResultsFoundView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        noResultsFoundView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        noResultsFoundView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        noResultsFoundView.isHidden = true
+    }
+    
     private func configureSpinnerView() {
         spinnerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(spinnerView)
@@ -87,7 +101,6 @@ class SearchedPlacePhotosViewController: UIViewController {
         spinnerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         spinnerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         spinnerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        spinnerView.backgroundColor = .purple
         spinnerView.isHidden = true
     }
     
@@ -96,13 +109,25 @@ class SearchedPlacePhotosViewController: UIViewController {
         searchedPlacePhotosCollectionView.refreshControl = refreshControl
        }
     
-    private func reloadColelctionViewData() {
-        DispatchQueue.main.async {
-            self.searchedPlacePhotosCollectionView.reloadData()
+    private func reloadColelctionViewData(_ photosList: [PlacePhotos]) {
+        switch photosList.count{
+        case 0:
+            self.isEndOfData = true
+            if(self.placePhotosList.count == 0) {
+                DispatchQueue.main.async {
+                    self.noResultsFoundView.isHidden = false
+                    self.searchedPlacePhotosCollectionView.isHidden = true
+                }
+            }
+        default:
+            self.placePhotosList += photosList
+            DispatchQueue.main.async {
+                self.searchedPlacePhotosCollectionView.reloadData()
+            }
         }
     }
     
-    private func setSpinnerVisibility(_ isNotVisible: Bool) {
+    private func setSpinnerVisibilityAsHidden(_ isNotVisible: Bool) {
         self.spinnerView.setSpinnerAnimation(!isNotVisible)
         DispatchQueue.main.async {
             self.spinnerView.isHidden = isNotVisible
@@ -112,29 +137,27 @@ class SearchedPlacePhotosViewController: UIViewController {
     
     @objc private func loadImageData() {
         currentPage += 1
-        setSpinnerVisibility(false)
+        setSpinnerVisibilityAsHidden(false)
         setImageData(placeName: self.placeName)
     }
     
     func setImageData(placeName: String) {
         self.placeName = placeName
-        photosViewModel.fetchPlacePhotos(placeName: placeName, pageCount: currentPage) {
-            result in
+        self.setSpinnerVisibilityAsHidden(false)
+        photosViewModel.fetchPlacePhotos(placeName: placeName, pageCount: currentPage) { [weak self] result in
+            guard let self = self else {
+                return
+            }
             switch result {
             case .success(let photosList):
-                self.placePhotosList += photosList.photosList
-                self.reloadColelctionViewData()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                    self.setSpinnerVisibility(true)
-                }
+                self.setSpinnerVisibilityAsHidden(true)
+                self.reloadColelctionViewData(photosList.photosList)
             case .failure(let error):
                 print("error", error)
-                self.setSpinnerVisibility(true)
-                
+                self.setSpinnerVisibilityAsHidden(true)
             }
         }
     }
-
 }
 
 extension SearchedPlacePhotosViewController: UICollectionViewDataSource {
@@ -161,7 +184,7 @@ extension SearchedPlacePhotosViewController: UICollectionViewDelegateFlowLayout 
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let dataCount = placePhotosList.count
-        if indexPath.row == dataCount - 1, currentPage < totalPages {
+        if indexPath.row == dataCount - 1, currentPage < totalPages, !isEndOfData {
             loadImageData()
         }
     }

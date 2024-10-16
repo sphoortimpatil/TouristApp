@@ -2,13 +2,13 @@
 //  SearchPlaceViewController.swift
 //  Tourist App
 //
-//  Created by CrewPlace Enterprise on 29/09/24.
+//  Created by Sphoorti Patil on 29/09/24.
 //
 
 import UIKit
 
 protocol SearchPlaceViewControllerDelegate: AnyObject {
-    func didTapPlaceNameToSearch(result: Result<SearchedPlaceInfoData, Error>)
+    func didTapPlaceNameToSearch(result: Result<SearchedPlaceInfoData, Error>, placeName: String)
     func setSelectedSearchTextOnDidSelect(searchedString: String)
 }
 
@@ -17,6 +17,7 @@ class SearchPlaceViewController: UIViewController {
     
     private let spinnerView = SpinnerView()
     private var autocomopltedSearchList: [AutocompletePredictions] = []
+    private let autocompleteVM = AutocompleteSearchViewModel()
     private let searchedPlaceInfoVM = SearchedPlaceInfoViewModel()
     private let searchedPlaceNearbyAttractionsVM = NearbyAttractionsViewModel()
     
@@ -58,12 +59,25 @@ class SearchPlaceViewController: UIViewController {
         searchPlaceTableView.delegate = self
     }
     
-    func setAutocompleteSearchListData(_ autocomopltedSearchList: [AutocompletePredictions] ) {
-        self.autocomopltedSearchList = autocomopltedSearchList
-        DispatchQueue.main.async {
-            self.searchPlaceTableView.isHidden = false
-            self.searchPlaceTableView.separatorStyle = .none
-            self.searchPlaceTableView.reloadData()
+    func setAutocompleteSearchListData(searchValue: String ) {
+        spinnerView.setSpinnerAnimation(true)
+        autocompleteVM.fetchAutocompleteSearchPredictions(searchString: searchValue) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            switch result {
+            case .success(let data):
+                self.autocomopltedSearchList = data.predictions
+                DispatchQueue.main.async {
+                    self.searchPlaceTableView.isHidden = false
+                    self.searchPlaceTableView.separatorStyle = .none
+                    self.searchPlaceTableView.reloadData()
+                }
+                self.spinnerView.setSpinnerAnimation(false)
+            case .failure(let error):
+                print(error)
+                self.spinnerView.setSpinnerAnimation(false)
+            }
         }
     }
 }
@@ -89,15 +103,18 @@ extension SearchPlaceViewController: UITableViewDataSource {
             self.searchPlaceTableView.isHidden = true
         }
         let placeId = autocomopltedSearchList[indexPath.row].placeId
-        searchedPlaceInfoVM.fetchSearchedPlaceInfo(placeId: placeId) {
-            result in
+        let placeName = autocomopltedSearchList[indexPath.row].structuredFormatting.mainText
+        searchedPlaceInfoVM.fetchSearchedPlaceInfo(placeId: placeId) { [weak self] result in
+            guard let self = self else {
+                return
+            }
             switch result{
             case .success(let placeInfo):
-                self.delegate?.didTapPlaceNameToSearch(result: .success(placeInfo))
+                self.delegate?.didTapPlaceNameToSearch(result: .success(placeInfo), placeName: placeName)
                 self.spinnerView.setSpinnerAnimation(false)
             case .failure(let error):
                 self.spinnerView.setSpinnerAnimation(false)
-                self.delegate?.didTapPlaceNameToSearch(result: .failure(error))
+                self.delegate?.didTapPlaceNameToSearch(result: .failure(error), placeName: "")
             }
         }
     }

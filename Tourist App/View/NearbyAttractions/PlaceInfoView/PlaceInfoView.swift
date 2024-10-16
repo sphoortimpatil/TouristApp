@@ -2,25 +2,20 @@
 //  PlaceInfoView.swift
 //  Tourist App
 //
-//  Created by CrewPlace Enterprise on 29/09/24.
+//  Created by Sphoorti Patil on 29/09/24.
 //
 
 import UIKit
 
 class PlaceInfoView: UIView {
     private let placeNameDetailsView = PlaceNameDetailsView()
-    
-    
     private let openingHourStateView = OpeningHourStateView()
-
     private let ratingStarView = RatingStarView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = .white
-        self.alpha = 0.8
-        
+        configureView()
         configurePlaceInfoView()
         configureStatusView()
         configureRatingStarView()
@@ -28,6 +23,11 @@ class PlaceInfoView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configureView() {
+        self.backgroundColor = .white
+        self.alpha = 0.8
     }
     
     private func configurePlaceInfoView() {

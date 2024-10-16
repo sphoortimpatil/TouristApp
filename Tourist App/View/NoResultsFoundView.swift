@@ -2,26 +2,28 @@
 //  NoResultsFoundView.swift
 //  Tourist App
 //
-//  Created by CrewPlace Enterprise on 13/10/24.
+//  Created by Sphoorti Patil on 13/10/24.
 //
 
 import UIKit
 
 class NoResultsFoundView: UIView {
-    private let noResultsFoundTitleLabel:UILabel = {
+    private let noResultsFoundTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "No Images Found"
+        label.text = "No Results Found"
+        label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.numberOfLines = 0
         return label
     }()
     
-    private let noResultsFoundDescriptionLabel:UILabel = {
+    private let noResultsFoundDescriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "There were no results for ''. Try a different place"
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.text = "There were no results for Searched Place. Try a different place"
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 18)
         label.numberOfLines = 0
         return label
     }()
@@ -29,7 +31,6 @@ class NoResultsFoundView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = .purple
         configureLabel()
     }
     
@@ -43,7 +44,7 @@ class NoResultsFoundView: UIView {
         noResultsFoundTitleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 100).isActive = true
         noResultsFoundTitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
         noResultsFoundTitleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
-//        noResultsFoundTitleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 10).isActive = true
+        
         
         self.addSubview(noResultsFoundDescriptionLabel)
         

@@ -2,7 +2,7 @@
 //  UIImageView+AsyncImage.swift
 //  Tourist App
 //
-//  Created by CrewPlace Enterprise on 29/09/24.
+//  Created by Sphoorti Patil on 29/09/24.
 //
 
 import Foundation
@@ -16,7 +16,6 @@ extension UIImageView {
         }
         
         let urlRequest = URLRequest(url: url)
-        
         URLSession.shared.dataTask(with: urlRequest){data, response, error in
             if let error = error {
                 completionHandler(.failure(error))

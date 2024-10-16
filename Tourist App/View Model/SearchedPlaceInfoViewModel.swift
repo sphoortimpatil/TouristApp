@@ -2,15 +2,15 @@
 //  SearchedPlaceInfoViewModel.swift
 //  Tourist App
 //
-//  Created by CrewPlace Enterprise on 28/09/24.
+//  Created by Sphoorti Patilon 28/09/24.
 //
 
 import Foundation
 
 class SearchedPlaceInfoViewModel {
+    
     func fetchSearchedPlaceInfo(placeId: String, completionHandler: @escaping(Result<SearchedPlaceInfoData, Error>) -> Void) {
-        fetchAsyncRapidApiMapsData(url: Constants.MapsDataApi.placeInfoApi, params: placeId) {
-            result in
+        fetchAsyncRapidApiMapsData(url: Constants.MapsDataApi.placeInfoApi, params: placeId) { result in
             switch result {
             case .success(let data):
                 do {
