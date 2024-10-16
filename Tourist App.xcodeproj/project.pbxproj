@@ -39,7 +39,6 @@
 		F3FE25732CA057B5008D92F8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FE25722CA057B5008D92F8 /* SceneDelegate.swift */; };
 		F3FE25752CA057B5008D92F8 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FE25742CA057B5008D92F8 /* HomeViewController.swift */; };
 		F3FE257A2CA057B6008D92F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3FE25792CA057B6008D92F8 /* Assets.xcassets */; };
-		F3FE257D2CA057B6008D92F8 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = F3FE257C2CA057B6008D92F8 /* Base */; };
 		F3FE25862CA0647A008D92F8 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FE25852CA0647A008D92F8 /* SearchBar.swift */; };
 		F3FE258B2CA06CB3008D92F8 /* AutocompleteSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FE258A2CA06CB3008D92F8 /* AutocompleteSearchViewModel.swift */; };
 		F3FE258D2CA06CD3008D92F8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FE258C2CA06CD3008D92F8 /* Constants.swift */; };
@@ -54,6 +53,7 @@
 		F303D4272CB167A800D81024 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		F31778CD2CBC43CC00BD44B1 /* NoResultsFoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoResultsFoundView.swift; sourceTree = "<group>"; };
 		F354E2E42CBD6AC50019956E /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		F354E2E62CBFFDD00019956E /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		F35928F82CB286B4004BFA90 /* PlacePhotosList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePhotosList.swift; sourceTree = "<group>"; };
 		F35928FA2CB286FD004BFA90 /* PlacePhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePhotos.swift; sourceTree = "<group>"; };
 		F35928FC2CB28757004BFA90 /* PhotosUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosUrl.swift; sourceTree = "<group>"; };
@@ -84,7 +84,6 @@
 		F3FE25722CA057B5008D92F8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		F3FE25742CA057B5008D92F8 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		F3FE25792CA057B6008D92F8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F3FE257C2CA057B6008D92F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F3FE257E2CA057B6008D92F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F3FE25852CA0647A008D92F8 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		F3FE258A2CA06CB3008D92F8 /* AutocompleteSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutocompleteSearchViewModel.swift; sourceTree = "<group>"; };
@@ -183,6 +182,7 @@
 		F3FE25642CA057B5008D92F8 = {
 			isa = PBXGroup;
 			children = (
+				F354E2E62CBFFDD00019956E /* Secrets.xcconfig */,
 				F354E2E42CBD6AC50019956E /* .gitignore */,
 				F3FE256F2CA057B5008D92F8 /* Tourist App */,
 				F3FE256E2CA057B5008D92F8 /* Products */,
@@ -212,7 +212,6 @@
 				F3FE25702CA057B5008D92F8 /* AppDelegate.swift */,
 				F3FE25792CA057B6008D92F8 /* Assets.xcassets */,
 				F3FE25722CA057B5008D92F8 /* SceneDelegate.swift */,
-				F3FE257B2CA057B6008D92F8 /* LaunchScreen.storyboard */,
 				F3FE257E2CA057B6008D92F8 /* Info.plist */,
 				F3FE258C2CA06CD3008D92F8 /* Constants.swift */,
 				F386D8192CB054D3009C5141 /* CustomNavigationController.swift */,
@@ -352,7 +351,6 @@
 			files = (
 				F3FE257A2CA057B6008D92F8 /* Assets.xcassets in Resources */,
 				F354E2E52CBD6AC50019956E /* .gitignore in Resources */,
-				F3FE257D2CA057B6008D92F8 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,20 +404,10 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXVariantGroup section */
-		F3FE257B2CA057B6008D92F8 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F3FE257C2CA057B6008D92F8 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		F3FE257F2CA057B6008D92F8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F354E2E62CBFFDD00019956E /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -483,6 +471,7 @@
 		};
 		F3FE25802CA057B6008D92F8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F354E2E62CBFFDD00019956E /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

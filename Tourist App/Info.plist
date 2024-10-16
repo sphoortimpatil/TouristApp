@@ -2,6 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>GOOGLE_PLACES_API_KEY_VALUE</key>
+	<string>$(GOOGLE_PLACES_API_KEY_VALUE)</string>
+	<key>GOOGLE_PLACES_API_HOST_VALUE</key>
+	<string>$(GOOGLE_PLACES_API_HOST_VALUE)</string>
+	<key>MAPS_DATA_API_KEY_VALUE</key>
+	<string>$(MAPS_DATA_API_KEY_VALUE)</string>
+	<key>MAPS_DATA_API_HOST_VALUE</key>
+	<string>$(MAPS_DATA_API_HOST_VALUE)</string>
+	<key>PEXEL_API_KEY_VALUE</key>
+	<string>$(PEXEL_API_KEY_VALUE)</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

@@ -11,6 +11,9 @@
 /.build/
 /Package.resolved
 
+#Secrets configuration file
+Secrets.xcconfig
+
 # Build artifacts
 DerivedData/
 build/
