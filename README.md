@@ -15,6 +15,9 @@ Access important details about each tourist attraction, which includes:
   - Reviews Count 
     
 - **Image Gallery**: View beautiful images of selected tourist locations to help plan your next adventure.
+  - **Pagination**: Seamlessly browse images across up to **10 pages** of stunning visuals related to your selected attractions. 
+  - **Reload Functionality**: A **reload button** allows you to refresh and load images again in case of an API failure.
+
 
 ## 📚 API References
 ### 1. Autocomplete User City Search
